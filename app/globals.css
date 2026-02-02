@@ -1,26 +1,18 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html, body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  /* BU/NSBE theme: dark base + BU red glow + subtle NSBE green accent */
+  background:
+    radial-gradient(1200px 600px at 50% 18%, rgba(204, 0, 0, 0.22), transparent 60%),
+    radial-gradient(900px 520px at 18% 88%, rgba(0, 166, 81, 0.10), transparent 55%),
+    #07070A;
+  color: #ffffff;
   font-family: Arial, Helvetica, sans-serif;
 }
