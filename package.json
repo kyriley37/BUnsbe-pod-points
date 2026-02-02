@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed:pods": "node scripts/seedPods.js"
+
   },
   "dependencies": {
+    "dotenv": "^17.2.3",
     "firebase": "^12.8.0",
     "firebase-admin": "^13.6.0",
     "next": "16.1.6",
