@@ -1,5 +1,7 @@
 import { getAdminDb } from "@/lib/firebaseAdmin";
 
+export const revalidate = 0;
+
 type Pod = {
   id: string;
   name: string;
