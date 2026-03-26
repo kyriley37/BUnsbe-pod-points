@@ -40,8 +40,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-secrets/
+
 
 # secrets (never commit)
+
 secrets/
-secrets/*.json
+*.json
+!package.json
+!package-lock.json

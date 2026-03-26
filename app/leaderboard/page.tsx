@@ -1,25 +1,45 @@
-"use client";
+import { getAdminDb } from "@/lib/firebaseAdmin";
 
-export default function LeaderboardPage() {
+type Pod = {
+  id: string;
+  name: string;
+  points: number;
+};
+
+export default async function LeaderboardPage() {
+  const db = getAdminDb();
+  const snapshot = await db.collection("pods").orderBy("points", "desc").get();
+
+  const pods: Pod[] = snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...(doc.data() as { name: string; points: number }),
+  }));
+
   return (
-    <div className="min-h-screen px-6 py-10">
-      <div className="mx-auto w-full max-w-3xl rounded-3xl border border-white/15 bg-black/40 backdrop-blur-md p-8">
-        <h1 className="text-3xl font-semibold">Leaderboard</h1>
-        <p className="mt-2 text-sm text-white/65">
-          This will pull totals from Firestore and sort pods automatically.
-        </p>
+    <div className="min-h-screen bg-black text-white px-6 py-12">
+      <h1 className="text-4xl font-bold text-center mb-10 text-red-600">
+        BU NSBE Family Pod Leaderboard
+      </h1>
 
-        <div className="mt-8 rounded-2xl bg-white/5 p-4 text-sm text-white/80">
-          Next: we’ll compute totals and show Pod name + points + last updated.
-        </div>
-
-        <a
-          href="/login"
-          className="mt-6 inline-block rounded-2xl bg-white/10 px-4 py-2 text-sm hover:bg-white/15 transition"
-        >
-          Back to login
-        </a>
+      <div className="max-w-3xl mx-auto space-y-4">
+        {pods.map((pod, index) => (
+          <div
+            key={pod.id}
+            className="flex items-center justify-between rounded-xl border border-white/10 bg-zinc-900 px-6 py-4"
+          >
+            <div className="flex items-center gap-4">
+              <span className="text-lg font-bold text-red-500">
+                #{index + 1}
+              </span>
+              <span className="text-lg">{pod.name}</span>
+            </div>
+            <span className="text-xl font-semibold">
+              {pod.points} pts
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
+
